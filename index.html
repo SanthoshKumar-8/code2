@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PartnerConnect - Collaborative Solutions</title>
+    <title>Global Innovation Hub - Collaborate on Ideas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         :root {
@@ -24,6 +25,7 @@
             --light-text: #666666;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
+            --border-radius: 10px;
         }
 
         body {
@@ -31,6 +33,12 @@
             color: var(--dark-text);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         /* Header Styles */
@@ -47,8 +55,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .logo {
@@ -146,8 +152,6 @@
         }
 
         .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
@@ -225,8 +229,8 @@
             color: var(--light-text);
         }
 
-        /* Services Section */
-        .services {
+        /* Featured Projects Section */
+        .featured-projects {
             padding: 5rem 2rem;
             background-color: var(--secondary-white);
         }
@@ -248,28 +252,26 @@
             margin: 0 auto;
         }
 
-        .services-grid {
+        .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
-        .service-card {
+        .project-card {
             background: var(--primary-white);
-            border-radius: 15px;
+            border-radius: var(--border-radius);
             overflow: hidden;
             transition: var(--transition);
             box-shadow: var(--shadow);
         }
 
-        .service-card:hover {
+        .project-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .service-icon {
+        .project-image {
             height: 200px;
             background: linear-gradient(to right, var(--primary-yellow), var(--secondary-yellow));
             display: flex;
@@ -279,32 +281,44 @@
             color: var(--primary-white);
         }
 
-        .service-content {
+        .project-content {
             padding: 1.5rem;
         }
 
-        .service-content h3 {
+        .project-content h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--dark-text);
         }
 
-        .service-content p {
+        .project-content p {
             color: var(--light-text);
             margin-bottom: 1.5rem;
         }
 
-        .service-link {
-            display: inline-flex;
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            color: var(--secondary-yellow);
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
+            margin-top: 1.5rem;
         }
 
-        .service-link:hover {
+        .project-author {
+            display: flex;
+            align-items: center;
             gap: 0.5rem;
+        }
+
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--secondary-yellow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-white);
+            font-size: 0.8rem;
         }
 
         /* How It Works Section */
@@ -316,8 +330,6 @@
         .process-container {
             display: flex;
             justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
             position: relative;
         }
 
@@ -364,23 +376,63 @@
             color: var(--light-text);
         }
 
+        /* Categories Section */
+        .categories {
+            padding: 5rem 2rem;
+            background-color: var(--accent-yellow);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: var(--primary-white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            color: var(--secondary-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .category-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        .category-card p {
+            color: var(--light-text);
+        }
+
         /* Testimonials Section */
         .testimonials {
             padding: 5rem 2rem;
-            background-color: var(--accent-yellow);
+            background-color: var(--primary-white);
         }
 
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .testimonial-card {
             background: var(--primary-white);
-            border-radius: 15px;
+            border-radius: var(--border-radius);
             padding: 2rem;
             box-shadow: var(--shadow);
             position: relative;
@@ -432,46 +484,129 @@
             font-size: 0.9rem;
         }
 
-        /* CTA Section */
-        .cta {
+        /* Login Form */
+        .login-section {
             padding: 5rem 2rem;
-            background: linear-gradient(to right, var(--primary-yellow), var(--secondary-yellow));
-            text-align: center;
+            background: linear-gradient(to right, var(--primary-white) 50%, var(--accent-yellow) 50%);
         }
 
-        .cta-container {
-            max-width: 800px;
-            margin: 0 auto;
+        .login-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
         }
 
-        .cta h2 {
+        .login-content h2 {
             font-size: 2.5rem;
-            color: var(--primary-white);
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+        }
+
+        .login-content p {
+            color: var(--light-text);
+            margin-bottom: 2rem;
+        }
+
+        .login-form {
+            background: var(--primary-white);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .cta p {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--secondary-yellow);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 196, 7, 0.3);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .forgot-password {
+            color: var(--secondary-yellow);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background-color: var(--secondary-white);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--secondary-yellow);
+            color: var(--primary-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-size: 1.2rem;
         }
 
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+        .contact-details h4 {
+            color: var(--dark-text);
+            margin-bottom: 0.3rem;
         }
 
-        .btn-white {
-            background: var(--primary-white);
-            color: var(--secondary-yellow);
-        }
-
-        .btn-white:hover {
-            background: var(--secondary-white);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        .contact-details p {
+            color: var(--light-text);
         }
 
         /* Footer */
@@ -482,8 +617,6 @@
         }
 
         .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
@@ -557,8 +690,7 @@
         }
 
         .footer-bottom {
-            max-width: 1200px;
-            margin: 3rem auto 0;
+            margin-top: 3rem;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
@@ -568,7 +700,7 @@
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .hero-container {
+            .hero-container, .login-container, .contact-container {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
@@ -620,7 +752,7 @@
                 text-align: center;
             }
             
-            .hero-buttons, .cta-buttons {
+            .hero-buttons {
                 flex-direction: column;
             }
             
@@ -633,128 +765,116 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="header-container">
+        <div class="container header-container">
             <div class="logo">
-                <div class="logo-text">Partner<span class="logo-highlight">Connect</span></div>
+                <div class="logo-text">Global<span class="logo-highlight">Innovation</span>Hub</div>
             </div>
             
             <ul class="nav-menu">
                 <li><a href="#" class="nav-link">Home</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#categories" class="nav-link">Categories</a></li>
                 <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#login" class="nav-link">Login</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             
             <div class="header-buttons">
-                <button class="btn btn-outline">Log In</button>
-                <button class="btn btn-primary">Sign Up</button>
+                <button class="btn btn-outline" onclick="showLogin()">Log In</button>
+                <button class="btn btn-primary" onclick="showRegister()">Sign Up</button>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-container">
+        <div class="container hero-container">
             <div class="hero-content">
-                <h1>Find the Perfect <span>Partnership</span> for Your Business Needs</h1>
-                <p>Connect with skilled professionals and businesses to collaborate on projects, services, and tasks. Together we achieve more!</p>
+                <h1>Share <span>Ideas</span>, Build <span>Innovations</span>, Create <span>Impact</span></h1>
+                <p>Join a global community where innovators share projects, ideas, and collaborate to bring visions to life. Together we can achieve more than any of us could alone.</p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary">Find a Partner</button>
-                    <button class="btn btn-outline">Become a Partner</button>
+                    <button class="btn btn-primary">Explore Projects</button>
+                    <button class="btn btn-outline">Submit Your Idea</button>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" alt="Partnership Collaboration">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" alt="Global Collaboration">
                 <div class="stats-container">
                     <div class="stat-item">
                         <div class="stat-number">500+</div>
-                        <div class="stat-label">Successful Partnerships</div>
+                        <div class="stat-label">Active Teams</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">98%</div>
-                        <div class="stat-label">Satisfaction Rate</div>
+                        <div class="stat-number">1200+</div>
+                        <div class="stat-label">Projects</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">200+</div>
-                        <div class="stat-label">Expert Partners</div>
+                        <div class="stat-number">85+</div>
+                        <div class="stat-label">Countries</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="section-title">
-            <h2>Our Partnership Services</h2>
-            <p>We offer various collaboration opportunities across different industries and skill sets</p>
-        </div>
-        
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Business Development</h3>
-                    <p>Partner with experts to grow your business, expand to new markets, and increase revenue.</p>
-                    <a href="#" class="service-link">Explore Opportunities <i class="fas fa-arrow-right"></i></a>
-                </div>
+    <!-- Featured Projects Section -->
+    <section class="featured-projects" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Projects</h2>
+                <p>Discover innovative ideas from around the world looking for collaboration</p>
             </div>
             
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-laptop-code"></i>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Sustainable Agriculture Solution</h3>
+                        <p>An AI-powered platform that helps farmers optimize water usage and increase crop yield while reducing environmental impact.</p>
+                        <div class="project-meta">
+                            <div class="project-author">
+                                <div class="author-avatar">MJ</div>
+                                <span>Maria Johnson</span>
+                            </div>
+                            <button class="btn btn-outline">Collaborate</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-content">
-                    <h3>Technology & IT</h3>
-                    <p>Collaborate on software development, IT infrastructure, and digital transformation projects.</p>
-                    <a href="#" class="service-link">Explore Opportunities <i class="fas fa-arrow-right"></i></a>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Accessibility App for Visually Impaired</h3>
+                        <p>A mobile application that uses computer vision to help visually impaired individuals navigate urban environments safely.</p>
+                        <div class="project-meta">
+                            <div class="project-author">
+                                <div class="author-avatar">TK</div>
+                                <span>Thomas Kim</span>
+                            </div>
+                            <button class="btn btn-outline">Collaborate</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Marketing & Sales</h3>
-                    <p>Join forces with marketing experts to boost your brand awareness and sales performance.</p>
-                    <a href="#" class="service-link">Explore Opportunities <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-paint-brush"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Creative Projects</h3>
-                    <p>Find creative partners for design, content creation, and multimedia projects.</p>
-                    <a href="#" class="service-link">Explore Opportunities <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-calculator"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Finance & Consulting</h3>
-                    <p>Partner with financial experts and consultants to optimize your business operations.</p>
-                    <a href="#" class="service-link">Explore Opportunities <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-hands-helping"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Specialized Services</h3>
-                    <p>Connect with professionals offering specialized services tailored to your unique needs.</p>
-                    <a href="#" class="service-link">Explore Opportunities <i class="fas fa-arrow-right"></i></a>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Low-Cost Wind Energy Generator</h3>
+                        <p>An innovative wind turbine design that can be built with locally sourced materials for communities without access to grid power.</p>
+                        <div class="project-meta">
+                            <div class="project-author">
+                                <div class="author-avatar">AR</div>
+                                <span>Amara Rodriguez</span>
+                            </div>
+                            <button class="btn btn-outline">Collaborate</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -762,105 +882,289 @@
 
     <!-- How It Works Section -->
     <section class="how-it-works" id="how-it-works">
-        <div class="section-title">
-            <h2>How Our Partnership Platform Works</h2>
-            <p>Simple steps to find the right partner and start collaborating</p>
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Join our platform in simple steps and start collaborating on innovative projects</p>
+            </div>
+            
+            <div class="process-container">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Create Your Profile</h3>
+                    <p>Sign up and create a detailed profile highlighting your skills, interests, and expertise.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Explore Projects</h3>
+                    <p>Browse through innovative projects or post your own idea seeking collaboration.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Connect & Collaborate</h3>
+                    <p>Reach out to project owners or respond to collaboration requests.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Build & Grow</h3>
+                    <p>Work together, share resources, and bring innovative ideas to life.</p>
+                </div>
+            </div>
         </div>
-        
-        <div class="process-container">
-            <div class="process-step">
-                <div class="step-number">1</div>
-                <h3>Create Your Profile</h3>
-                <p>Sign up and create a detailed profile highlighting your skills, services, and partnership goals.</p>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>Project Categories</h2>
+                <p>Explore ideas across various domains and industries</p>
             </div>
             
-            <div class="process-step">
-                <div class="step-number">2</div>
-                <h3>Find Partners</h3>
-                <p>Browse through potential partners or use our matching algorithm to find ideal collaboration opportunities.</p>
-            </div>
-            
-            <div class="process-step">
-                <div class="step-number">3</div>
-                <h3>Connect & Collaborate</h3>
-                <p>Reach out to potential partners, discuss projects, and start working together towards common goals.</p>
-            </div>
-            
-            <div class="process-step">
-                <div class="step-number">4</div>
-                <h3>Grow Together</h3>
-                <p>Execute projects, achieve milestones, and build long-term profitable partnerships.</p>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Technology</h3>
+                    <p>Software, apps, AI, blockchain, and tech innovations</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainability</h3>
+                    <p>Environmental solutions, clean energy, and eco-friendly projects</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Healthcare</h3>
+                    <p>Medical innovations, health tech, and wellness solutions</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Education</h3>
+                    <p>EdTech, learning platforms, and educational tools</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Food & Agriculture</h3>
+                    <p>Food security, agricultural tech, and sustainable farming</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h3>Smart Cities</h3>
+                    <p>Urban planning, infrastructure, and IoT solutions</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="section-title">
-            <h2>Success Stories</h2>
-            <p>See what our partners have achieved through collaboration</p>
-        </div>
-        
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    <p>"PartnerConnect helped me find the perfect marketing expert for my startup. Together we increased our customer base by 300% in just 6 months!"</p>
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">JD</div>
-                    <div class="author-details">
-                        <h4>John Davis</h4>
-                        <p>Tech Startup Founder</p>
-                    </div>
-                </div>
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Success Stories</h2>
+                <p>See what our community has achieved through collaboration</p>
             </div>
             
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    <p>"As a freelance designer, I've found incredible projects through PartnerConnect. The platform makes it easy to connect with businesses that need my expertise."</p>
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">SR</div>
-                    <div class="author-details">
-                        <h4>Sarah Rodriguez</h4>
-                        <p>Graphic Designer</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Through GlobalInnovationHub, I found a team of developers and designers who helped me turn my concept into a working prototype. We're now seeking funding to launch our product globally!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-details">
+                            <h4>Sarah Johnson</h4>
+                            <p>Founder, EcoSolutions</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    <p>"We partnered with a software development team through PartnerConnect to build our new app. The collaboration was seamless and the results exceeded our expectations."</p>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"As a software engineer, I've connected with brilliant minds across continents. We're working on an open-source project that has the potential to help thousands of small businesses."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DR</div>
+                        <div class="author-details">
+                            <h4>David Rodriguez</h4>
+                            <p>Software Engineer</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">MK</div>
-                    <div class="author-details">
-                        <h4>Michael Kim</h4>
-                        <p>Product Manager</p>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"This platform helped me find the perfect technical co-founder for my startup. We complement each other's skills and have built something amazing together in just six months."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AL</div>
+                        <div class="author-details">
+                            <h4>Aisha Lawal</h4>
+                            <p>Entrepreneur</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="contact">
-        <div class="cta-container">
-            <h2>Ready to Find Your Perfect Business Partner?</h2>
-            <p>Join our platform today and start building profitable partnerships</p>
-            <div class="cta-buttons">
-                <button class="btn btn-white">Create Account</button>
-                <button class="btn btn-outline">Learn More</button>
+    <!-- Login Form Section -->
+    <section class="login-section" id="login">
+        <div class="container login-container">
+            <div class="login-content">
+                <h2>Join Our Global Innovation Community</h2>
+                <p>Create an account to share your ideas, collaborate on projects, and connect with innovators from around the world. Together we can solve complex challenges and create meaningful impact.</p>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-number">15K+</div>
+                        <div class="stat-label">Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">120+</div>
+                        <div class="stat-label">Countries</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">82%</div>
+                        <div class="stat-label">Active Projects</div>
+                    </div>
+                </div>
+            </div>
+            <div class="login-form">
+                <h3>Create Your Account</h3>
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <label for="agreeTerms">I agree to terms</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                </form>
+                <p style="text-align: center; margin-top: 1.5rem;">
+                    Already have an account? <a href="#" style="color: var(--secondary-yellow); text-decoration: none; font-weight: 500;">Log In</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Get in touch with us for questions, support, or partnership opportunities</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Your Name</h4>
+                            <p>Santhosh Kumar A</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email Address</h4>
+                            <p>santhoshkumar26008@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone Number</h4>
+                            <p>+91 6379135936</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p>India</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="login-form">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">Your Name</label>
+                            <input type="text" id="contactName" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email Address</label>
+                            <input type="email" id="contactEmail" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <input type="text" id="contactSubject" placeholder="Enter subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" rows="5" placeholder="Enter your message" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-size: 1rem;" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-container">
+        <div class="container footer-container">
             <div class="footer-col">
-                <h3>PartnerConnect</h3>
-                <p>Connecting businesses and professionals for successful partnerships and collaborations.</p>
+                <h3>GlobalInnovationHub</h3>
+                <p>Connecting innovators worldwide to collaborate on projects, share ideas, and create meaningful impact together.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -873,40 +1177,70 @@
                 <h3>Quick Links</h3>
                 <ul class="footer-links">
                     <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Categories</a></li>
                     <li><a href="#"><i class="fas fa-chevron-right"></i> How It Works</a></li>
                     <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
                 </ul>
             </div>
             
             <div class="footer-col">
-                <h3>Services</h3>
+                <h3>Resources</h3>
                 <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Business Development</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Technology & IT</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Marketing & Sales</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Creative Projects</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Finance & Consulting</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Success Stories</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Documentation</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Support</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> API</a></li>
                 </ul>
             </div>
             
             <div class="footer-col">
-                <h3>Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt"></i> 123 Partnership Ave, Collaboration City</p>
-                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                <p><i class="fas fa-envelope"></i> info@partnerconnect.com</p>
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter to get updates on new projects and collaboration opportunities.</p>
+                <div class="form-group">
+                    <input type="email" placeholder="Enter your email" style="width: 100%; padding: 0.8rem 1rem; border: none; border-radius: 50px; margin-top: 1rem;">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">Subscribe</button>
             </div>
         </div>
         
-        <div class="footer-bottom">
-            <p>&copy; 2023 PartnerConnect. All rights reserved.</p>
+        <div class="container footer-bottom">
+            <p>&copy; 2023 GlobalInnovationHub. All rights reserved. | Designed by Santhosh Kumar A</p>
         </div>
     </footer>
 
     <script>
-        // Simple JavaScript for interactive elements
+        // Form validation
         document.addEventListener('DOMContentLoaded', function() {
+            const registrationForm = document.getElementById('registrationForm');
+            const contactForm = document.getElementById('contactForm');
+            
+            if (registrationForm) {
+                registrationForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    
+                    if (password !== confirmPassword) {
+                        alert('Passwords do not match!');
+                        return;
+                    }
+                    
+                    alert('Registration successful! Welcome to our community.');
+                    registrationForm.reset();
+                });
+            }
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your message! We will get back to you soon.');
+                    contactForm.reset();
+                });
+            }
+            
             // Smooth scrolling for navigation links
             document.querySelectorAll('a.nav-link').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -932,13 +1266,6 @@
                     setTimeout(() => {
                         this.style.transform = '';
                     }, 200);
-                    
-                    // Simple alert for demo purposes
-                    if(this.textContent === 'Find a Partner' || this.textContent === 'Become a Partner') {
-                        setTimeout(() => {
-                            alert('Thank you for your interest! This would open a registration form in a real application.');
-                        }, 300);
-                    }
                 });
             });
             
@@ -985,6 +1312,15 @@
                     }, frameDuration);
                 });
             }
+            
+            // Login/Register modal functions
+            window.showLogin = function() {
+                alert('Login dialog would appear here. This is a frontend demonstration.');
+            };
+            
+            window.showRegister = function() {
+                document.getElementById('login').scrollIntoView({behavior: 'smooth'});
+            };
         });
     </script>
 </body>

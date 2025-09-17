@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IdeasHub — SDG 17 Collaboration Platform (Prototype)</title>
+  <meta name="description" content="IdeasHub prototype — a collaborative platform for sharing projects, ideas and initiating partnerships (SDG 17)">
+
+  <!--
+    ------------------------------------------------------------------
+    IdeasHub — Prototype single-file HTML + CSS + JavaScript
+    - Built as a presentable prototype for an Ideathon entry focused on SDG 17
+    - Includes: beautiful hero, login modal, signup flow (UI), idea posting, idea cards,
+      collaboration request, credit system mockup, contact details, social links
+    - Author / contact: Santhosh Kumar A
+      phone: +91 6379135936
+      email: santhoshkumar26008@gmail.com
+      instagram: https://www.instagram.com/santhosh_kumar_026?igsh=MTFnZzJuMmlvMHV5bQ%3D%3D
+      linkedin: https://www.linkedin.com/in/santhosh-kumar-arul-990449380?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+
+    Note: This file is intentionally verbose and declarative to satisfy the "large file" requirement
+    in the Ideathon brief. It is still designed to be readable, extendable and easy to convert into
+    a multi-file project later (CSS and JS can be split out).
+    ------------------------------------------------------------------
+  -->
+
+  <style>
+    /* ===================================================================================== */
+    /* Reset + Base ------------------------------------------------------------------------ */
+    :root{
+      --bg:#f3f4f6;             /* page background */
+      --card:#ffffff;           /* card background */
+      --muted:#6b7280;         /* muted text */
+      --accent:#6b7280;        /* neutral accent, will adapt */
+      --primary:#374151;       /* dark slate */
+      --accent-2:#9CA3AF;      /* secondary neutral */
+      --accent-cta:#4b5563;    /* buttons */
+      --glass: rgba(255,255,255,0.6);
+      --glass-2: rgba(255,255,255,0.85);
+      --success: #10B981;      /* green */
+      --danger: #EF4444;       /* red */
+      --shadow: 0 10px 30px rgba(15,23,42,0.08);
+      --max-width: 1200px;
+      --radius: 12px;
+      --mono: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: var(--mono);
+      background: linear-gradient(180deg, #e9eef2 0%, #f3f4f6 100%);
+      color:var(--primary);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:80px;
+    }
+
+    /* ===================================================================================== */
+    /* Layout -------------------------------------------------------------------------------- */
+    .container{
+      width:94%;
+      max-width:var(--max-width);
+      margin: 0 auto;
+    }
+
+    header.topbar{
+      position:sticky;
+      top:0;
+      z-index:60;
+      background: linear-gradient(180deg, rgba(250,250,250,0.9), rgba(250,250,250,0.7));
+      backdrop-filter: blur(6px);
+      border-bottom:1px solid rgba(15,23,42,0.04);
+    }
+
+    .topbar .inner{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 10px;
+    }
+
+    .brand{
+      display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;color:var(--primary);
+    }
+
+    .brand .logo{
+      width:48px;height:48px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#9CA3AF,#6B7280);color:white;font-weight:800;font-size:18px;box-shadow:var(--shadow)
+    }
+
+    nav.mainnav ul{
+      list-style:none;display:flex;gap:12px;align-items:center;margin:0;padding:0;
+    }
+
+    nav.mainnav a{
+      text-decoration:none;color:var(--primary);padding:8px 12px;border-radius:8px;font-weight:600;font-size:14px;
+    }
+
+    nav.mainnav a.cta{
+      background:linear-gradient(90deg,#4f46e5,#06b6d4);color:#fff;padding:9px 14px;
+    }
+
+    /* ===================================================================================== */
+    /* Hero --------------------------------------------------------------------------------- */
+    .hero{
+      margin-top:18px;
+      border-radius:18px;
+      overflow:hidden;
+      padding:40px 0;
+      position:relative;
+      background:linear-gradient(180deg, rgba(63,94,251,0.06), rgba(34,211,238,0.03));
+    }
+
+    .hero .inner{display:flex;gap:20px;align-items:center}
+
+    .hero-left{flex:1;padding:28px}
+    .hero-right{flex:1;display:grid;place-items:center;padding:28px}
+
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(59,130,246,0.12);color:#0ea5e9;font-weight:700;font-size:13px}
+
+    h1.title{font-size:34px;line-height:1.08;margin:12px 0;color:var(--primary)}
+    p.lead{color:var(--muted);max-width:70%}
+
+    .hero-actions{margin-top:20px;display:flex;gap:12px;align-items:center}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:700
+    }
+
+    .btn.primary{background:linear-gradient(90deg,#0ea5e9,#6366f1);color:white}
+    .btn.ghost{background:transparent;border:1px solid rgba(100,116,139,0.12)}
+
+    /* decorative globe */
+    .globe{
+      width:340px;height:340px;border-radius:50%;background:radial-gradient(circle at 30% 20%, #fff 0%, #eef2ff 18%, #e6eef6 40%);display:grid;place-items:center;box-shadow:var(--shadow)
+    }
+
+    .globe svg{width:90%;height:90%}
+
+    /* ===================================================================================== */
+    /* Main grid --------------------------------------------------------------------------- */
+    .two-col{display:grid;grid-template-columns:1fr 380px;gap:26px;margin-top:26px}
+
+    /* feed and sidebar */
+    .feed{background:transparent}
+    .sidebar{position:sticky;top:92px}
+
+    /* card */
+    .card{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow);border:1px solid rgba(15,23,42,0.03)}
+
+    .card h3{margin:0 0 8px 0;font-size:16px}
+    .muted{color:var(--muted);font-size:13px}
+
+    /* idea composer */
+    .composer{display:flex;flex-direction:column;gap:10px}
+    .composer input,.composer textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(15,23,42,0.06)}
+    .composer textarea{min-height:120px;resize:vertical}
+
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:#f1f5f9;padding:6px 10px;border-radius:999px;font-weight:700;color:var(--accent)}
+
+    /* idea grid */
+    .ideas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:18px}
+
+    .idea-card{padding:14px;border-radius:12px;background:linear-gradient(180deg,#fff,#ffffff);border:1px solid rgba(15,23,42,0.03)}
+
+    .idea-head{display:flex;gap:12px;align-items:center}
+    .idea-avatar{width:56px;height:56px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(180deg,#eef2ff,#dbeafe);font-weight:800}
+
+    .idea-meta{flex:1}
+    .idea-title{font-size:16px;margin-bottom:6px}
+    .idea-desc{color:var(--muted);font-size:13px}
+
+    .idea-actions{display:flex;gap:8px;margin-top:10px}
+    .pill{padding:8px 10px;border-radius:999px;border:1px solid rgba(15,23,42,0.06);font-weight:700;font-size:13px;cursor:pointer}
+
+    /* collaboration request modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:200}
+    .modal{width:720px;background:var(--card);border-radius:12px;padding:18px}
+
+    /* login modal */
+    .login-modal .inputs{display:flex;flex-direction:column;gap:10px}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* sidebar lists */
+    .list{display:flex;flex-direction:column;gap:8px}
+    .list a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--primary);padding:8px;border-radius:8px}
+
+    .socials{display:flex;gap:8px}
+    .socials a{display:inline-block;padding:8px;border-radius:8px;background:#f8fafc;text-decoration:none}
+
+    /* footer */
+    footer.sitefoot{margin-top:40px;padding:30px 0;text-align:center;color:var(--muted)}
+
+    /* responsive */
+    @media (max-width:980px){
+      .two-col{grid-template-columns:1fr;}
+      .hero .inner{flex-direction:column}
+      .hero-left p.lead{max-width:100%}
+      .hero-right{order:-1}
+    }
+
+    /* ===================================================================================== */
+    /* Tiny util classes ------------------------------------------------------------------- */
+    .flex{display:flex;gap:10px;align-items:center}
+    .stack{display:flex;flex-direction:column;gap:10px}
+    .center{display:grid;place-items:center}
+    .right{text-align:right}
+
+    /* ===================================================================================== */
+    /* Decorative footnote area ----------------------------------------------------------- */
+    .note{font-size:13px;color:var(--muted)}
+
+    /* ===================================================================================== */
+  </style>
+</head>
+
+<body>
+  <!-- TOP NAVBAR -->
+  <header class="topbar">
+    <div class="container inner">
+      <div class="brand">
+        <div class="logo">IH</div>
+        <div>
+          IdeasHub
+          <div class="small" style="font-weight:600;color:var(--muted);font-size:12px">SDG 17 — Partnerships for the Goals</div>
+        </div>
+      </div>
+
+      <nav class="mainnav">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#explore">Explore</a></li>
+          <li><a href="#howitworks">How it works</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#" class="cta" id="openLogin">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="container">
+    <section class="hero card" id="home">
+      <div class="inner">
+        <div class="hero-left">
+          <div class="kicker">Open Innovation • Collab • Credit</div>
+          <h1 class="title">IdeasHub — Collective innovation for SDG Partnerships</h1>
+          <p class="lead">Share your projects, ideas, research, startup plans and join hands with people across the world. Build partnerships, get credit for your work and accelerate impact.</p>
+
+          <div class="hero-actions">
+            <button class="btn primary" id="startNow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Start a Project</button>
+            <button class="btn ghost" id="watchDemo">Watch Demo</button>
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+            <div class="tag">SDG 17</div>
+            <div class="tag">Community</div>
+            <div class="tag">Open Innovation</div>
+          </div>
+
+        </div>
+
+        <div class="hero-right center">
+          <div class="globe card">
+            <!-- Inline SVG globe with SDG wheel suggestion -->
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#60a5fa"/>
+                  <stop offset="100%" stop-color="#34d399"/>
+                </linearGradient>
+              </defs>
+              <circle cx="100" cy="100" r="90" fill="url(#g1)" opacity="0.14"/>
+              <g transform="translate(20,20)">
+                <circle cx="60" cy="60" r="60" fill="#ffffff" opacity="0.06"/>
+                <g transform="translate(14,14)">
+                  <circle cx="46" cy="46" r="46" fill="#fff" opacity="0.04"/>
+                  <path d="M46 0 A46 46 0 0 1 79 10 L46 46 Z" fill="#F97316" opacity="0.9"/>
+                  <path d="M46 0 A46 46 0 0 1 100 46 L46 46 Z" fill="#FB7185" opacity="0.9"/>
+                  <path d="M46 0 A46 46 0 0 1 79 82 L46 46 Z" fill="#60A5FA" opacity="0.9"/>
+                  <path d="M46 0 A46 46 0 0 1 13 82 L46 46 Z" fill="#34D399" opacity="0.9"/>
+                  <path d="M46 0 A46 46 0 0 1 -13 46 L46 46 Z" fill="#A78BFA" opacity="0.9"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN GRID: FEED + SIDEBAR -->
+    <div class="two-col container">
+      <section class="feed">
+        <!-- COMPOSER -->
+        <div class="card composer" id="composer">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(180deg,#c7d2fe,#a78bfa);display:grid;place-items:center;color:white;font-weight:800">S</div>
+            <div style="flex:1">
+              <div style="font-weight:800">Santhosh Kumar A</div>
+              <div class="muted">Post your project or idea — get collaborators worldwide</div>
+            </div>
+            <div class="muted">Public</div>
+          </div>
+
+          <div style="margin-top:10px">
+            <input id="ideaTitle" placeholder="Project title — e.g., Solar Microgrids for Villages" />
+            <textarea id="ideaDesc" placeholder="Describe your idea, plan or project in 2–5 sentences."></textarea>
+            <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+              <input id="ideaTags" placeholder="Tags (comma separated) — e.g., energy, education" />
+              <select id="ideaPrivacy">
+                <option value="public">Public</option>
+                <option value="collab">Collaboration on request</option>
+                <option value="private">Private</option>
+              </select>
+              <button class="btn primary" id="postIdea">Post Idea</button>
+            </div>
+            <div class="small muted" style="margin-top:8px">By posting, you agree to share basic information publicly and accept collaboration requests. Credit system will annotate originator automatically.</div>
+          </div>
+        </div>
+
+        <!-- IDEAS GRID -->
+        <div id="ideasArea" class="ideas-grid" aria-live="polite">
+          <!-- Idea cards are injected here via JavaScript -->
+        </div>
+
+        <!-- LOAD MORE / FOOTER NOTE -->
+        <div style="margin-top:18px;display:flex;justify-content:center">
+          <button id="loadMore" class="btn ghost">Load more</button>
+        </div>
+
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="card">
+          <h3>About this Project</h3>
+          <p class="muted">IdeasHub is a prototype platform to enable partnerships for SDGs by connecting innovators, NGOs, students and organisations. It focuses on credit, access and collaborative workflows.</p>
+          <div style="margin-top:10px" class="list">
+            <a href="#howitworks"><strong>How it works</strong></a>
+            <a href="#team"><strong>Team & Contacts</strong></a>
+            <a href="#impact"><strong>Impact Metrics</strong></a>
+          </div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="card">
+          <h3>Quick Actions</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+            <button class="btn primary" id="newCollab">Request Collaboration</button>
+            <button class="btn ghost" id="exploreTags">Explore by Tag</button>
+            <button class="btn ghost" id="myProjects">My Projects</button>
+          </div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="card">
+          <h3>Author</h3>
+          <div style="display:flex;gap:12px;align-items:center">
+            <div style="width:64px;height:64px;border-radius:10px;background:linear-gradient(180deg,#c7d2fe,#a78bfa);display:grid;place-items:center;color:white;font-weight:800">SK</div>
+            <div>
+              <div style="font-weight:800">Santhosh Kumar A</div>
+              <div class="muted">IDEATHON entry — SDG 17</div>
+              <div style="margin-top:6px" class="small muted">Contact: +91 6379135936</div>
+              <div class="small muted">Email: santhoshkumar26008@gmail.com</div>
+            </div>
+          </div>
+          <div style="margin-top:12px" class="socials">
+            <a href="https://www.instagram.com/santhosh_kumar_026?igsh=MTFnZzJuMmlvMHV5bQ%3D%3D" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.linkedin.com/in/santhosh-kumar-arul-990449380?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section id="howitworks" style="margin-top:28px">
+      <div class="card">
+        <h2>How IdeasHub Works — Quick overview</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px">
+          <div class="card">
+            <h3>1. Post</h3>
+            <p class="muted">Anyone can post an idea: research, project, startup plan or a simple thought that can be useful for others.</p>
+          </div>
+          <div class="card">
+            <h3>2. Discover</h3>
+            <p class="muted">Search or browse ideas by tag, SDG or region.</p>
+          </div>
+          <div class="card">
+            <h3>3. Request Collaboration</h3>
+            <p class="muted">Send a structured request to the idea owner. If approved, a collaboration space is created.</p>
+          </div>
+          <div class="card">
+            <h3>4. Credit & Benefits</h3>
+            <p class="muted">Originator gets visible credit, co-authorship and can choose licensing or benefit-sharing options.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" style="margin-top:18px">
+      <div class="card">
+        <h2>Team & Mentors</h2>
+        <p class="muted">This prototype is prepared by Santhosh Kumar A for the college Ideathon. Suggested mentors: faculty, NGO partners and industry advisors.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px">
+          <div class="card">
+            <div class="muted">Lead</div>
+            <div style="font-weight:800">Santhosh Kumar A</div>
+            <div class="small muted">Ideas, product vision & prototype</div>
+          </div>
+
+          <div class="card">
+            <div class="muted">Advisor</div>
+            <div style="font-weight:800">Faculty Mentor</div>
+            <div class="small muted">Domain guidance & evaluation</div>
+          </div>
+
+          <div class="card">
+            <div class="muted">Community Partner</div>
+            <div style="font-weight:800">Local NGO</div>
+            <div class="small muted">Field validation & deployment</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="margin-top:18px">
+      <div class="card">
+        <h2>Contact & Submission</h2>
+        <p class="muted">For partnership, mentoring or to request source files and additional materials — contact the author:</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+          <div class="small muted">Name: Santhosh Kumar A</div>
+          <div class="small muted">Phone: +91 6379135936</div>
+          <div class="small muted">Email: santhoshkumar26008@gmail.com</div>
+          <div class="small muted">Instagram: <a href="https://www.instagram.com/santhosh_kumar_026?igsh=MTFnZzJuMmlvMHV5bQ%3D%3D" target="_blank">santhosh_kumar_026</a></div>
+          <div class="small muted">LinkedIn: <a href="https://www.linkedin.com/in/santhosh-kumar-arul-990449380?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Santhosh Kumar Arul</a></div>
+        </div>
+
+        <div style="margin-top:12px">
+          <form id="contactForm" onsubmit="return false;">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <input placeholder="Your name" required style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(15,23,42,0.06)" id="cname">
+              <input placeholder="Your email" required style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(15,23,42,0.06)" id="cemail">
+            </div>
+            <textarea placeholder="Message" style="margin-top:8px;padding:10px;border-radius:10px;border:1px solid rgba(15,23,42,0.06)" id="cmsg"></textarea>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button class="btn primary" onclick="submitContact()">Send</button>
+              <button class="btn ghost" onclick="resetContact()">Reset</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="sitefoot">
+      <div class="container">
+        <div style="display:flex;justify-content:center;gap:20px;align-items:center;flex-direction:column">
+          <div style="font-weight:800">IdeasHub — SDG 17 Prototype</div>
+          <div class="muted">Designed by Santhosh Kumar A — Contact: +91 6379135936 | santhoshkumar26008@gmail.com</div>
+          <div class="muted">Made with ❤️ to foster partnerships for the Global Goals</div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- MODALS (hidden by default) -->
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Request Collaboration</h3>
+      <div style="margin-top:8px" class="small muted">Send a request to the project originator. Be clear about your role and what you bring.</div>
+
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+        <input id="reqName" placeholder="Your name" />
+        <input id="reqEmail" placeholder="Your email" />
+        <textarea id="reqMsg" placeholder="Message (why you want to collaborate, what you will contribute)"></textarea>
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn ghost" id="closeModal">Cancel</button>
+          <button class="btn primary" id="sendRequest">Send Request</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div id="loginBackdrop" class="modal-backdrop">
+    <div class="modal login-modal card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <h3 id="loginTitle">Login to IdeasHub</h3>
+      <div class="small muted">Use the test credentials (for prototype):</div>
+      <div style="display:flex;gap:8px;margin-top:10px" class="inputs">
+        <input id="loginEmail" placeholder="Email or username" value="santhoshkumar26008@gmail.com">
+        <input id="loginPass" placeholder="Password" type="password" value="Sample@123">
+        <div style="display:flex;gap:8px">
+          <button class="btn primary" id="btnLogin">Login</button>
+          <button class="btn ghost" id="btnCancelLogin">Cancel</button>
+        </div>
+        <div class="small muted">Don't have an account? <a href="#" id="openSignup">Sign up</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNUP MODAL (simple) -->
+  <div id="signupBackdrop" class="modal-backdrop">
+    <div class="modal card" role="dialog" aria-modal="true" aria-labelledby="signupTitle">
+      <h3 id="signupTitle">Join IdeasHub</h3>
+      <div class="small muted">Create a free account to post and manage your ideas.</div>
+      <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+        <input id="suName" placeholder="Full name" />
+        <input id="suEmail" placeholder="Email" />
+        <input id="suPassword" placeholder="Password" type="password" />
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn ghost" id="btnCancelSignup">Cancel</button>
+          <button class="btn primary" id="btnCreate">Create account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ===================================================================================== */
+    /* JavaScript — client-side prototype logic (no backend) -------------------------------- */
+    /* This script implements a simple in-memory idea store and UI interactions for the demo */
+    /* NOTE: For real deployment you will replace in-memory arrays with real APIs and auth. */
+
+    (function(){
+      // In-memory store
+      const ideas = [];
+
+      // Example seed ideas to show more content and visual richness
+      const seedIdeas = [
+        {
+          id:1,
+          title: 'Solar Microgrids for Rural Schools',
+          desc: 'Deploy low-cost solar microgrids for rural schools to power lighting and basic electronics. Community-driven maintenance and local skill development included.',
+          author: 'Asha Initiative',
+          tags: ['energy','education','community'],
+          credit: 'Asha Initiative (originator)'
+        },
+        {
+          id:2,
+          title: 'Community Library-on-Wheels',
+          desc: 'A mobile library van stocked with donated books and digital tablets, visiting remote hamlets every week. Volunteers welcome.',
+          author: 'BookBridge',
+          tags: ['education','community','books'],
+          credit: 'BookBridge'
+        },
+        {
+          id:3,
+          title: 'Low-cost Water Purifier using Locally Sourced Charcoal',
+          desc: 'Design for a localized water purification system using available materials. Seeking partners for field trials.',
+          author: 'GreenLab',
+          tags: ['water','health','innovation'],
+          credit: 'GreenLab'
+        }
+      ];
+
+      // Initialize with seeds
+      seedIdeas.forEach(i=>ideas.push(i));
+
+      // Utilities
+      function el(q){return document.querySelector(q)}
+      function els(q){return Array.from(document.querySelectorAll(q))}
+
+      // Render functions
+      function renderIdeas(){
+        const area = el('#ideasArea');
+        area.innerHTML = '';
+        ideas.slice().reverse().forEach(idea=>{
+          const card = document.createElement('div');
+          card.className = 'idea-card card';
+
+          card.innerHTML = `
+            <div class="idea-head">
+              <div class="idea-avatar">${(idea.author||'U').slice(0,2).toUpperCase()}</div>
+              <div class="idea-meta">
+                <div class="idea-title">${escapeHtml(idea.title)}</div>
+                <div class="idea-desc">${escapeHtml(idea.desc)}</div>
+                <div style="margin-top:8px" class="muted">By ${escapeHtml(idea.author || 'Anonymous')} • <span class="small">${escapeHtml(idea.tags.join(', '))}</span></div>
+              </div>
+            </div>
+            <div class="idea-actions">
+              <div class="pill" onclick="window.requestCollab(${idea.id})">Request collaboration</div>
+              <div class="pill" onclick="window.viewDetail(${idea.id})">View</div>
+              <div class="pill" onclick="window.cloneIdea(${idea.id})">Fork / Use</div>
+            </div>
+          `;
+
+          area.appendChild(card);
+        });
+      }
+
+      // Escape HTML to avoid injection in this prototype
+      function escapeHtml(str){
+        if(!str) return '';
+        return String(str)
+          .replace(/&/g,'&amp;')
+          .replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;')
+          .replace(/"/g,'&quot;')
+          .replace(/'/g,'&#039;');
+      }
+
+      // Post idea handler
+      el('#postIdea').addEventListener('click', ()=>{
+        const title = el('#ideaTitle').value.trim();
+        const desc = el('#ideaDesc').value.trim();
+        const tags = (el('#ideaTags').value||'').split(',').map(t=>t.trim()).filter(Boolean);
+        const privacy = el('#ideaPrivacy').value;
+
+        if(!title || !desc){
+          alert('Please add a title and description for your idea.');
+          return;
+        }
+
+        const newIdea = {
+          id: Date.now(),
+          title, desc, author: 'Santhosh Kumar A', tags, privacy, credit: 'Santhosh Kumar A (originator)'
+        };
+
+        ideas.push(newIdea);
+        el('#ideaTitle').value=''; el('#ideaDesc').value=''; el('#ideaTags').value='';
+        renderIdeas();
+        alert('Idea posted! It is visible in the feed.');
+      });
+
+      // Load more: for this demo duplicating seeds (visual only)
+      el('#loadMore').addEventListener('click', ()=>{
+        seedIdeas.forEach(s=>{
+          const copy = Object.assign({}, s, {id: Date.now()+Math.floor(Math.random()*1000)});
+          ideas.push(copy);
+        });
+        renderIdeas();
+      });
+
+      // modal & login controls
+      function showModal(){el('#modalBackdrop').style.display='flex'}
+      function hideModal(){el('#modalBackdrop').style.display='none'}
+      function showLogin(){el('#loginBackdrop').style.display='flex'}
+      function hideLogin(){el('#loginBackdrop').style.display='none'}
+      function showSignup(){el('#signupBackdrop').style.display='flex'}
+      function hideSignup(){el('#signupBackdrop').style.display='none'}
+
+      el('#newCollab').addEventListener('click', showModal);
+      el('#closeModal').addEventListener('click', hideModal);
+      el('#sendRequest').addEventListener('click', ()=>{
+        const name = el('#reqName').value.trim();
+        const email = el('#reqEmail').value.trim();
+        const msg = el('#reqMsg').value.trim();
+        if(!name || !email || !msg){alert('Please fill all fields');return}
+        hideModal(); alert('Collaboration request sent (demo). Owner will receive your message.');
+      });
+
+      el('#openLogin').addEventListener('click', (e)=>{e.preventDefault(); showLogin();});
+      el('#btnCancelLogin').addEventListener('click', hideLogin);
+      el('#btnLogin').addEventListener('click', ()=>{
+        const em = el('#loginEmail').value.trim();
+        const pw = el('#loginPass').value.trim();
+        if(!em || !pw){alert('Please enter email and password');return}
+        hideLogin(); alert('Logged in as ' + em + ' (prototype)');
+      });
+
+      el('#openSignup').addEventListener('click', (e)=>{e.preventDefault(); hideLogin(); showSignup();});
+      el('#btnCancelSignup').addEventListener('click', hideSignup);
+      el('#btnCreate').addEventListener('click', ()=>{
+        const name = el('#suName').value.trim();
+        const email = el('#suEmail').value.trim();
+        const pw = el('#suPassword').value.trim();
+        if(!name || !email || !pw){alert('Please fill all fields');return}
+        hideSignup(); alert('Account created (demo). You can use the site now.');
+      });
+
+      // Contact form actions
+      window.submitContact = function(){
+        const n = el('#cname').value.trim();
+        const e = el('#cemail').value.trim();
+        const m = el('#cmsg').value.trim();
+        if(!n || !e || !m){alert('Please fill the contact form');return}
+        alert('Thanks '+n+"! Your message was received (demo). We'll contact you at " + e);
+        el('#cname').value='';el('#cemail').value='';el('#cmsg').value='';
+      }
+
+      window.resetContact = function(){el('#cname').value='';el('#cemail').value='';el('#cmsg').value='';}
+
+      // External actions (view, requestCollab, clone)
+      window.viewDetail = function(id){
+        const idea = ideas.find(x=>x.id===id);
+        if(!idea){alert('Idea not found');return}
+        alert('Title: '+idea.title + '\nAuthor: '+idea.author + '\n\n' + idea.desc);
+      }
+
+      window.requestCollab = function(id){
+        const idea = ideas.find(x=>x.id===id);
+        if(!idea){alert('Idea not found');return}
+        showModal();
+        // Prefill with author info for convenience
+        el('#reqMsg').value = 'Hi '+idea.author+', I would like to collaborate on "'+idea.title+'". Here is what I bring: ...';
+      }
+
+      window.cloneIdea = function(id){
+        const idea = ideas.find(x=>x.id===id);
+        if(!idea){alert('Idea not found');return}
+        const copy = Object.assign({}, idea, {id: Date.now(), title: idea.title + ' (Fork)'});
+        ideas.push(copy);
+        renderIdeas();
+        alert('You forked the idea. Remember to credit the originator: ' + idea.credit);
+      }
+
+      // quick demo triggers
+      el('#startNow').addEventListener('click', ()=>{window.scrollTo({top:document.querySelector('#composer').offsetTop-20,behavior:'smooth'});
+        el('#ideaTitle').focus();
+      });
+
+      el('#watchDemo').addEventListener('click', ()=>{
+        alert('Demo: Post ideas, request collaboration, fork ideas. This is a frontend-only prototype for Ideathon presentation.');
+      });
+
+      // small helper: open signup/login via URL hash
+      if(location.hash === '#login') showLogin();
+      if(location.hash === '#signup') showSignup();
+
+      // initial render
+      renderIdeas();
+
+      // Accessibility: close modals on ESC
+      document.addEventListener('keydown', (e)=>{if(e.key==='Escape'){hideModal();hideLogin();hideSignup();}});
+
+      // expose for debugging
+      window.IdeasHub = {ideas, renderIdeas};
+
+    })();
+
+    /* ===================================================================================== */
+    /* End of script                                                                          */
+    /* ===================================================================================== */
+  </script>
+
+</body>
+</html>
